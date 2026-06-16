@@ -3,9 +3,9 @@ import { json } from '@sveltejs/kit';
 import { nanoid } from 'nanoid';
 import { getDb } from '$lib/db/turso';
 
-const db = getDb();
 
 export async function GET() {
+	const db = getDb();
 	try {
 		const result = await db.execute(`
 			SELECT *
@@ -31,6 +31,7 @@ export async function GET() {
 }
 
 export async function POST({ request }) {
+	const db = getDb();
 	try {
 		const body = await request.json();
 
