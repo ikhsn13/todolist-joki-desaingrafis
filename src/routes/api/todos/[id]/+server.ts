@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
-import { db } from '$lib/db/turso';
+import { getDb } from '$lib/db/turso';
 
+const db = getDb();
 export async function PUT({ params, request }) {
 	try {
 		const id = params.id;

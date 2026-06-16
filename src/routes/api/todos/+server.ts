@@ -1,6 +1,9 @@
 import { json } from '@sveltejs/kit';
-import { db } from '$lib/db/turso';
+
 import { nanoid } from 'nanoid';
+import { getDb } from '$lib/db/turso';
+
+const db = getDb();
 
 export async function GET() {
 	try {

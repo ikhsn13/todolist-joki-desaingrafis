@@ -1,6 +1,9 @@
 import { createClient } from '@libsql/client';
+import { env } from '$env/dynamic/private';
 
-export const db = createClient({
-	url: process.env.TURSO_DATABASE_URL!,
-	authToken: process.env.TURSO_AUTH_TOKEN!
-});
+export function getDb() {
+  return createClient({
+    url: env.DATABASE_URL,
+    authToken: env.DATABASE_AUTH_TOKEN
+  });
+}
