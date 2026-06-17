@@ -1,43 +1,33 @@
 import { json } from '@sveltejs/kit';
 import { getDb } from '$lib/db/turso';
 
-
 export async function PUT({ params, request, platform }) {
-const db = getDb(platform?.env);
+	const db = getDb(platform?.env);
+
 	try {
-		const id = params.id;
-
 		const body = await request.json();
-
-		const {
-			nama_klien,
-			nomor_whatsapp,
-			deskripsi_pesanan,
-			status
-		} = body;
 
 		await db.execute({
 			sql: `
 				UPDATE todos
 				SET
-					nama_klien = ?,
-					nomor_whatsapp = ?,
-					deskripsi_pesanan = ?,
-					status = ?
+					nama = ?,
+					nomor = ?,
+					deskripsi = ?,
+					completed = ?
 				WHERE id = ?
 			`,
 			args: [
-				nama_klien,
-				nomor_whatsapp,
-				deskripsi_pesanan,
-				status,
-				id
+				body.nama,
+				body.nomor,
+				body.deskripsi,
+				body.completed,
+				params.id
 			]
 		});
 
 		return json({
-			success: true,
-			message: 'Data berhasil diperbarui'
+			success: true
 		});
 	} catch (error) {
 		console.error(error);
@@ -45,7 +35,7 @@ const db = getDb(platform?.env);
 		return json(
 			{
 				success: false,
-				message: 'Gagal update data'
+				message: String(error)
 			},
 			{ status: 500 }
 		);
@@ -54,20 +44,18 @@ const db = getDb(platform?.env);
 
 export async function DELETE({ params, platform }) {
 	const db = getDb(platform?.env);
-	try {
-		const id = params.id;
 
+	try {
 		await db.execute({
 			sql: `
 				DELETE FROM todos
 				WHERE id = ?
 			`,
-			args: [id]
+			args: [params.id]
 		});
 
 		return json({
-			success: true,
-			message: 'Data berhasil dihapus'
+			success: true
 		});
 	} catch (error) {
 		console.error(error);
@@ -75,7 +63,7 @@ export async function DELETE({ params, platform }) {
 		return json(
 			{
 				success: false,
-				message: 'Gagal menghapus data'
+				message: String(error)
 			},
 			{ status: 500 }
 		);

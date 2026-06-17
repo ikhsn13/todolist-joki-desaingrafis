@@ -3,5 +3,5 @@ export interface Todo {
 	nama: string;
 	nomor: string;
 	deskripsi: string;
-	completed: number | boolean;
+	completed: number;
 }
