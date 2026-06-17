@@ -16,16 +16,16 @@ export async function GET({ platform }) {
 			data: result.rows
 		});
 	} catch (error) {
-		console.error('GET ERROR:', error);
+	console.error(error);
 
-		return json(
-			{
-				success: false,
-				message: String(error)
-			},
-			{ status: 500 }
-		);
-	}
+	return json(
+		{
+			success: false,
+			message: error instanceof Error ? error.message : String(error)
+		},
+		{ status: 500 }
+	);
+}
 }
 
 export async function POST({ request, platform }) {
