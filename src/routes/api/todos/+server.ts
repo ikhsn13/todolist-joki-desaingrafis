@@ -16,12 +16,15 @@ export async function GET({ platform }) {
 			data: result.rows
 		});
 	} catch (error) {
-	console.error(error);
+	console.error('GET TODOS ERROR:', error);
 
 	return json(
 		{
 			success: false,
-			message: error instanceof Error ? error.message : String(error)
+			message:
+				error instanceof Error
+					? error.message
+					: String(error)
 		},
 		{ status: 500 }
 	);
