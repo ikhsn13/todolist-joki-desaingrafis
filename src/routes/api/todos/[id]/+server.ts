@@ -2,8 +2,8 @@ import { json } from '@sveltejs/kit';
 import { getDb } from '$lib/db/turso';
 
 
-export async function PUT({ params, request }) {
-	const db = getDb();
+export async function PUT({ params, request, platform }) {
+const db = getDb(platform?.env);
 	try {
 		const id = params.id;
 
@@ -52,8 +52,8 @@ export async function PUT({ params, request }) {
 	}
 }
 
-export async function DELETE({ params }) {
-	const db = getDb();
+export async function DELETE({ params, platform }) {
+	const db = getDb(platform?.env);
 	try {
 		const id = params.id;
 

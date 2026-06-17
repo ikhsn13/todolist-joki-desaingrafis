@@ -4,8 +4,8 @@ import { nanoid } from 'nanoid';
 import { getDb } from '$lib/db/turso';
 
 
-export async function GET() {
-	const db = getDb();
+export async function GET({ platform }) {
+	const db = getDb(platform?.env);
 	try {
 		const result = await db.execute(`
 			SELECT *
@@ -30,8 +30,8 @@ export async function GET() {
 	}
 }
 
-export async function POST({ request }) {
-	const db = getDb();
+export async function POST({ request, platform }) {
+	const db = getDb(platform?.env);
 	try {
 		const body = await request.json();
 
