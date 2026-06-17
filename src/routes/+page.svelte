@@ -96,14 +96,9 @@
 	}
 
 	async function editTodo(todo: Todo) {
-		const nama = prompt('Nama Klien', todo.nama_klien);
-		if (!nama) return;
-
-		const nomor = prompt('Nomor WhatsApp', todo.nomor_whatsapp);
-		if (!nomor) return;
-
-		const deskripsi = prompt('Deskripsi', todo.deskripsi_pesanan);
-		if (!deskripsi) return;
+		const nama = prompt('Nama Klien', todo.nama);
+const nomor = prompt('Nomor WhatsApp', todo.nomor);
+const deskripsi = prompt('Deskripsi', todo.deskripsi);
 
 		try {
 			await fetch(`/api/todos/${todo.id}`, {
@@ -130,10 +125,10 @@
 	let completedTodos: Todo[] = [];
 
 	$: pendingTodos = todos.filter(
-		(item) => item.status === 'pending'
-	);
+	(item) => !item.completed
+);
 
-	$: completedTodos = todos.filter(
-		(item) => item.status === 'completed'
-	);
+$: completedTodos = todos.filter(
+	(item) => item.completed
+);
 </script>
