@@ -8,11 +8,9 @@ export async function GET({ platform }) {
 	const db = getDb(platform?.env);
 	try {
 		const result = await db.execute(`
-			SELECT *
-			FROM todos
-			ORDER BY created_at DESC
-		`);
-
+	SELECT *
+	FROM todos
+`);
 		return json({
 			success: true,
 			data: result.rows
@@ -57,25 +55,25 @@ export async function POST({ request, platform }) {
 
 		const id = nanoid();
 
-		await db.execute({
-			sql: `
-				INSERT INTO todos (
-					id,
-					nama_klien,
-					nomor_whatsapp,
-					deskripsi_pesanan,
-					status
-				)
-				VALUES (?, ?, ?, ?, ?)
-			`,
-			args: [
-				id,
-				nama_klien,
-				nomor_whatsapp,
-				deskripsi_pesanan,
-				'pending'
-			]
-		});
+	await db.execute({
+	sql: `
+		INSERT INTO todos (
+			id,
+			nama,
+			nomor,
+			deskripsi,
+			completed
+		)
+		VALUES (?, ?, ?, ?, ?)
+	`,
+	args: [
+		id,
+		nama_klien,
+		nomor_whatsapp,
+		deskripsi_pesanan,
+		0
+	]
+});
 
 		return json({
 			success: true,
