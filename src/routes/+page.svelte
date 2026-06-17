@@ -83,9 +83,9 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					...todo,
-					status: 'completed'
-				})
+	...todo,
+	completed: 1
+})
 			});
 
 			toast.success('Pekerjaan selesai');
@@ -107,11 +107,11 @@ const deskripsi = prompt('Deskripsi', todo.deskripsi);
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					...todo,
-					nama_klien: nama,
-					nomor_whatsapp: nomor,
-					deskripsi_pesanan: deskripsi
-				})
+	...todo,
+	nama: nama,
+	nomor: nomor,
+	deskripsi: deskripsi
+})
 			});
 
 			toast.success('Data diperbarui');
